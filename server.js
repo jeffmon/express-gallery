@@ -36,30 +36,14 @@ app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 
 app.get("/", (req, res) => {
-  Picture.findAll({
 
-    })
-    .then((pictures) => {
-      var pictureData = pictures.map((item) => {
-        var filteredPic = {
-          Author: item.Author,
-          link: item.link,
-          description: item.description
-        };
-        return filteredPic;
-      })
-      // var myTemplateObject = {
-      //   pictures: [
-      //     {
-      //       Author: ,
-      //       link: ,
-      //       description:
-      //     }
-      //   ]
-      // }
-    })
+  Picture.findAll()
+    .then((picture) => {
+        res.render("home", {
+          pictures: picture
+        })
+    });
 
-  res.render("layouts/main")
 });
 
 
@@ -89,7 +73,6 @@ app.get("/gallery/:id", (req, res) => {
 });
 
 app.post("/gallery", (req, res) => {
-  //console.log(req.body.author);
   galleryPost(req);
   res.end();
 });
