@@ -28,4 +28,6 @@ node_modules
 .lock-wscript
 bower_components
 node_modules
+config/config.json
+.gitignore
 *.DS_Store
