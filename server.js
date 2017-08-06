@@ -117,5 +117,23 @@ app.put("/gallery/:id/", (req, res) => {
   .catch((err) => {
     console.log(err);
   })
+  res.redirect(`/gallery/${parseInt(req.params.id)}/edit`);
   res.end();
+})
+
+app.get("/gallery/:id/edit", (req, res) => {
+  Picture.findById(parseInt(req.params.id))
+    .then((picture) => {
+      var pictureData;
+      pictureData = {
+        link: picture.dataValues.link,
+        Author: picture.dataValues.Author,
+        description: picture.dataValues.description,
+        id: parseInt(picture.dataValues.id)
+      };
+      res.render("edit", pictureData)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 })
