@@ -98,4 +98,24 @@ app.delete("/gallery/:id", (req, res) => {
     console.log(err);
   })
   res.end();
+});
+
+app.put("/gallery/:id/", (req, res) => {
+  Picture.update({
+    link: req.body.link,
+    Author: req.body.Author,
+    description: req.body.description
+  },
+  {
+    where: {
+      id: parseInt(req.params.id)
+    }
+  })
+  .then((picture) => {
+    console.log("Updated!");
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  res.end();
 })
