@@ -42,7 +42,6 @@ const galleryPost = (req) => {
     })
 }
 
-
 app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 
@@ -62,8 +61,6 @@ app.get("/gallery/new", (req, res) => {
   })
 })
 
-
-
 app.get("/gallery/:id", (req, res) => {
   var pictureData;
   Picture.findAll({
@@ -82,10 +79,23 @@ app.get("/gallery/:id", (req, res) => {
     })
 });
 
-
-
 app.post("/gallery", (req, res) => {
   galleryPost(req);
   res.redirect("/");
   res.end();
 });
+
+app.delete("/gallery/:id", (req, res) => {
+  Picture.destroy({
+    where: {
+      id: parseInt(req.params.id)
+    }
+  })
+  .then((picture) => {
+    console.log(`ID: ${req.params.id} is deleted!`);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  res.end();
+})
