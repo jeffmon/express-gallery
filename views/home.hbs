@@ -1,10 +1,13 @@
 <h1>Gallery</h1>
 <div class="pictures">
-  {{#each pictures}}
     <div class="picture">
-      <p>{{Author}}</p>
-      <p>{{description}}</p>
-      <img src={{link}} />
+      <p>{{pictures.0.Author}}</p>
+      <p>{{pictures.0.description}}</p>
+      <img class="pictureFile" src={{pictures.0.link}} />
     </div>
-  {{/each}}
+    <div class="picture">
+      <p>{{pictures.1.Author}}</p>
+      <p>{{pictures.1.description}}</p>
+      <img class="pictureFile" src={{pictures.1.link}} />
+    </div>
 </div>

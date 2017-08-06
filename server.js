@@ -17,6 +17,7 @@ app.use(methodOverride(function(req, res) {
     return method;
   }
 }));
+app.use(express.static("public"));
 
 const hbs = exphbs.create({
   defaultLayout: "main",
