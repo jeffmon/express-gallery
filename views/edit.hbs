@@ -2,13 +2,13 @@
   <form action="/gallery/{{id}}" method="post">
   <input type="hidden" name="_method" value="PUT">
   <label for="Author">Author</label>
-  <input id="Author" type="text" name="Author" placeholder="Author of Picture">
+  <input id="Author" type="text" name="Author" value={{Author}}>
   <br>
   <label for="description">Description</label>
-  <input id = "description" type="text" name="description" placeholder="Description">
+  <input id = "description" type="text" name="description" value={{description}}>
   <br>
   <label for="link">Link</label>
-  <input id = "link" type="text" name="link" placeholder="Link">
+  <input id = "link" type="text" name="link" value={{link}}>
   <br>
   <input type="submit" name="" value="Send">
 </form>
