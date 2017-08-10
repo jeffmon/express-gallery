@@ -1,12 +1,13 @@
 const gulp = require("gulp");
 const sass = require("gulp-sass");
 
+
 gulp.task('styles', function() {
-    gulp.src('sass/**/*.scss')
+    gulp.src('scss/style.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./public/styles/'));
 });
 
 gulp.task('default',function() {
-    gulp.watch('sass/**/*.scss',['styles']);
+    gulp.watch('scss/**/*.scss',['styles']);
 });
