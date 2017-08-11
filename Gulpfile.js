@@ -1,50 +1,33 @@
-// const gulp = require("gulp");
-// const sass = require("gulp-sass");
+
+// gulp.task('templates', () => {
 //
-//
-// gulp.task('styles', function() {
-//     gulp.src('scss/style.scss')
-//         .pipe(sass().on('error', sass.logError))
-//         .pipe(gulp.dest('./public/styles/'));
-// });
-//
-// gulp.task('default',function() {
-//     gulp.watch('scss/**/*.scss',['styles']);
+//   gulp.src(["/views/home.hbs"])
+//     .pipe(handlebars(null))
+//     .pipe(rename({
+//       extname: '.html',
+//     }))
+//     .pipe(gulp.dest("./"))
+//     .pipe(browserSync.reload({stream: true}));
 // });
 
-const gulp        = require('gulp');
-const sass        = require('gulp-sass');
-const browserSync = require('browser-sync').create();
-const handlebars  = require('gulp-compile-handlebars');
-const rename      = require('gulp-rename');
+var gulp = require('gulp')
+var scss = require('gulp-sass')
+var browserSync = require('browser-sync').create()
 
-
-gulp.task('serve', () => {
-  browserSync.init({
-    proxy: "localhost:3000"
-
-  });
+browserSync.init({
+    proxy: 'localhost:3000'
 });
 
-gulp.task('styles', function() {
-    gulp.src('scss/style.scss')
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('./public/styles/'));
+
+gulp.task('scss', function () {
+  return gulp.src('./scss/style.scss')
+    .pipe(scss())
+    .pipe(gulp.dest('./public/css/'));
 });
 
-gulp.task('templates', () => {
+gulp.task('watch', function (){
+  gulp.watch('./scss/**/*', ['scss'])
+  gulp.watch('./public/**/*').on('change', browserSync.reload);
+})
 
-  gulp.src(["/views/home.hbs"])
-    .pipe(handlebars(null))
-    .pipe(rename({
-      extname: '.html',
-    }))
-    .pipe(gulp.dest("./"))
-    .pipe(browserSync.reload({stream: true}));
-});
-
-gulp.task('watch',function() {
-    gulp.watch('scss/**/*.scss',['styles']);
-});
-
-gulp.task("default", ["serve", "styles", "templates", "watch"]);
+gulp.task('default', ['watch']);

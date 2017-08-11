@@ -7,6 +7,9 @@ const bp = require("body-parser");
 app.use(bp.urlencoded());
 const exphbs = require("express-handlebars");
 const methodOverride = require("method-override");
+const passport = require("passport");
+const session = require("express-session");
+const LocalStrategy = require("passport-local").Strategy;
 
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(methodOverride(function(req, res) {
@@ -18,6 +21,10 @@ app.use(methodOverride(function(req, res) {
   }
 }));
 app.use(express.static("public"));
+app.use(session({ secret: "keyboard cat" }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 const hbs = exphbs.create({
   defaultLayout: "main",
