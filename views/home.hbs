@@ -1,21 +1,34 @@
-<h1>Gallery</h1>
-
+<h1>_ARCHITEKT</h1>{{!--
 {{>login}}
 <br>
 <br>
-{{>newlogin}}
+{{>newlogin}} --}}
 
+{{#if user}}
+  Hello, {{user.username}} {{>new}}
+{{else}}
+  {{>login}} {{>newlogin}}
+{{/if}}
 
-
-<div class="pictures">
+<div class="container">
     <div class="picture">
-      <p>{{pictures.0.Author}}</p>
-      <p>{{pictures.0.description}}</p>
-      <img class="pictureFile" src={{pictures.0.link}} />
+      <p>{{pictures.first.Author}}</p>
+      <p>{{pictures.first.description}}</p>
+      <img class="pictureFile" src= {{pictures.first.link}} />
     </div>
     <div class="picture">
-      <p>{{pictures.1.Author}}</p>
-      <p>{{pictures.1.description}}</p>
-      <img class="pictureFile" src={{pictures.1.link}} />
+      <p>{{pictures.second.Author}}</p>
+      <p>{{pictures.second.description}}</p>
+      <img class="pictureFile" src= {{pictures.second.link}} />
+    </div>
+    <div class="picture">
+      <p>{{pictures.third.Author}}</p>
+      <p>{{pictures.third.description}}</p>
+      <img class="pictureFile" src= {{pictures.third.link}} />
+    </div>
+    <div class="picture">
+      <p>{{pictures.fourth.Author}}</p>
+      <p>{{pictures.fourth.description}}</p>
+      <img class="pictureFile" src= {{pictures.fourth.link}} />
     </div>
 </div>

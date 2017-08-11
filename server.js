@@ -40,6 +40,7 @@ passport.use(new LocalStrategy(
       })
       .then((user) => {
         if (user.password === password) {
+          console.log(user.dataValues);
           return done(null, user);
         } else {
           console.log("Incorrect password");
@@ -78,7 +79,7 @@ passport.deserializeUser(function(userId, done) {
         id: user.id,
         username: user.username
       });
-        //^ store the serialized information into the request object
+      //^ store the serialized information into the request object
     })
     .catch((user, err) => {
       done(err, user);
@@ -112,15 +113,15 @@ const galleryPost = (req) => {
 
 const loginCreate = (req) => {
   User.create({
-    username: req.body.username,
-    password: req.body.password
-  })
-  .then((data) => {
-    console.log("Created user!");
-  })
-  .catch((err) => {
-    console.log(err);
-  })
+      username: req.body.username,
+      password: req.body.password
+    })
+    .then((data) => {
+      console.log("Created user!");
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 }
 
 
@@ -146,17 +147,30 @@ app.get("/login", (req, res) => {
 })
 
 app.get("/", (req, res) => {
+
   Picture.findAll()
     .then((picture) => {
+      var first = picture[picture.length - 1];
+      var second = picture[picture.length - 2];
+      var third = picture[picture.length - 3];
+      var fourth = picture[picture.length - 4];
+      console.log("FIRST", first)
+      var moddedPicture = {
+        first: first,
+        second: second,
+        third: third,
+        fourth: fourth
+      }
       res.render("home", {
-        pictures: picture
+        pictures: moddedPicture,
+        user: req.user
       })
     });
 });
 
 app.get("/gallery/new", (req, res) => {
   var errorMessage = null;
-  res.render("new", {
+  res.render("partials/new", {
     error: errorMessage
   })
 })
