@@ -1,21 +1,117 @@
+h1 {
+  text-align: center;
+  font-size: 40px;
+  margin: 30px;
+  font-family: 'Archivo', sans-serif;
+  color: grey; }
+
+.dropdown {
+  display: inline-block;
+  position: relative; }
+
+.dd-button {
+  display: inline-block;
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 10px 30px 10px 20px;
+  background-color: #ffffff;
+  cursor: pointer;
+  white-space: nowrap;
+  color: grey; }
+
+.dd-button:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black; }
+
+.dd-input {
+  display: none; }
+
+#loginForm {
+  position: absolute;
+  top: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0;
+  margin: 2px 0 0 0;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  list-style-type: none;
+  color: grey; }
+
+#loginForm div {
+  display: block;
+  margin: -10px -20px;
+  padding: 10px 20px; }
+
+#uploadForm {
+  position: absolute;
+  top: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0;
+  margin: 2px 0 0 0;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  list-style-type: none;
+  color: grey; }
+
+#uploadForm div {
+  display: block;
+  margin: -10px -20px;
+  padding: 10px 20px; }
+
+.dd-input + #loginForm {
+  display: none; }
+
+.dd-input:checked + #loginForm {
+  display: block; }
+
+.dd-input + #uploadForm {
+  display: none; }
+
+.dd-input:checked + #uploadForm {
+  display: block; }
+
 .contain {
   max-width: 1200px;
   margin: 0 auto; }
 
+.author {
+  font-size: 16px;
+  margin: -1px auto; }
+
+.description {
+  font-size: 12px;
+  margin: -1px auto; }
+
 .container {
-  background-color: pink;
-  color: #956ff6;
   display: flex;
   flex-direction: column;
-  padding: 1rem; }
+  padding: 1rem;
+  justify-content: center; }
+  @media screen and (min-width: 540px) {
+    .container {
+      flex-direction: row;
+      flex-flow: wrap; } }
 
 .picture {
   background-color: brown;
-  width: 56rem;
-  height: 50rem;
-  margin: 0.5rem 0;
-  border: 1px solid black; }
+  width: 100%;
+  height: 15rem;
+  margin-bottom: 100px;
+  color: grey; }
   .picture img {
     width: 100%;
     height: 100%;
     object-fit: cover; }
+  @media screen and (min-width: 540px) {
+    .picture {
+      width: calc(33% - 0.5rem); } }

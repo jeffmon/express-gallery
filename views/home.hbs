@@ -5,30 +5,83 @@
 {{>newlogin}} --}}
 
 {{#if user}}
-  Hello, {{user.username}} {{>new}}
+  {{!-- {{>new}} --}}
+  <label class="dropdown">
+    <div class="dd-button">
+      Upload Image
+    </div>
+
+    <input type="checkbox" class="dd-input" id="test">
+
+    <div id="uploadForm">
+      <form action="/gallery" method="post">
+      <label for="Author">Author</label>
+      <input id="Author" type="text" name="Author" placeholder="Author of Picture">
+      <br>
+      <label for="description">Description</label>
+      <input id = "description" type="text" name="description" placeholder="Description">
+      <br>
+      <label for="link">Link</label>
+      <input id = "link" type="text" name="link" placeholder="Link">
+      <br>
+      <input type="submit" name="" value="Send">
+    </form>
+    </div>
+    <div class="error">
+      <strong>{{error}}</strong>
+    </div>
+
+
+
+  </label>
 {{else}}
-  {{>login}} {{>newlogin}}
+  {{!-- {{>login}} {{>newlogin}} --}}
+  <label class="dropdown">
+    <div class="dd-button">
+        Login
+      </div>
+
+  <input type="checkbox" class="dd-input" id="test">
+
+  <div id="loginForm">
+    <form action="/login" method="post">
+      <div>
+        <label>Username:</label>
+  <input id="username" type="text" name="username" />
+  </div>
+  <div>
+    <label>Password:</label>
+    <input id="password" type="text" name="password" />
+  </div>
+  <div>
+    <input type="submit" value="Log In" />
+  </div>
+  </form>
+  </div>
+  </label>
+
 {{/if}}
 
 <div class="container">
-    <div class="picture">
-      <p>{{pictures.first.Author}}</p>
-      <p>{{pictures.first.description}}</p>
-      <img class="pictureFile" src= {{pictures.first.link}} />
-    </div>
-    <div class="picture">
-      <p>{{pictures.second.Author}}</p>
-      <p>{{pictures.second.description}}</p>
-      <img class="pictureFile" src= {{pictures.second.link}} />
-    </div>
-    <div class="picture">
-      <p>{{pictures.third.Author}}</p>
-      <p>{{pictures.third.description}}</p>
-      <img class="pictureFile" src= {{pictures.third.link}} />
-    </div>
-    <div class="picture">
-      <p>{{pictures.fourth.Author}}</p>
-      <p>{{pictures.fourth.description}}</p>
-      <img class="pictureFile" src= {{pictures.fourth.link}} />
-    </div>
+  <div class="picture">
+    <img class="pictureFile" src= {{pictures.first.link}} />
+    <br>
+    <p class="author">{{pictures.first.Author}}</p>
+    <p class="description">{{pictures.first.description}}</p>
+  </div>
+  <div class="picture">
+    <img class="pictureFile" src= {{pictures.second.link}} />
+    <p class="author">{{pictures.second.Author}}</p>
+    <p class="description">{{pictures.second.description}}</p>
+  </div>
+  <div class="picture">
+    <img class="pictureFile" src= {{pictures.third.link}} />
+    <p class="author">{{pictures.third.Author}}</p>
+    <p class="description">{{pictures.third.description}}</p>
+  </div>
+  <div class="picture">
+    <img class="pictureFile" src= {{pictures.fourth.link}} />
+    <p class="author">{{pictures.fourth.Author}}</p>
+    <p class="description">{{pictures.fourth.description}}</p>
+  </div>
 </div>
