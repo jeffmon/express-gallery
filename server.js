@@ -2,6 +2,7 @@ const express = require("express");
 const PORT = process.env.PORT || 3000;
 const db = require("./models");
 const Picture = db.Picture;
+const User = db.User;
 const app = express();
 const bp = require("body-parser");
 app.use(bp.urlencoded());
@@ -21,9 +22,68 @@ app.use(methodOverride(function(req, res) {
   }
 }));
 app.use(express.static("public"));
-app.use(session({ secret: "keyboard cat" }));
+app.use(session({
+  secret: "keyboard cat"
+}));
 app.use(passport.initialize());
 app.use(passport.session());
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    // ^ client side username and password
+    console.log("client-side-username", username);
+    console.log("client-side-username", password);
+    User.findOne({
+        where: {
+          username: username
+        }
+      })
+      .then((user) => {
+        if (user.password === password) {
+          return done(null, user);
+        } else {
+          console.log("Incorrect password");
+          return done(null, false, {
+            message: "Incorrect Password"
+          })
+        }
+      })
+      .catch((err) => {
+        console.log("Username not found");
+        console.log(err);
+        console.log("Incorrect username");
+        return done(null, false, {
+          message: "Incorrect Username"
+        })
+      })
+  }
+))
+
+passport.serializeUser(function(user, done) {
+  //^ received from the LocalStrategy succession
+  console.log("serializing the user into session");
+  done(null, user.id);
+  //^ building the object/values/information to store into the session object
+});
+
+passport.deserializeUser(function(userId, done) {
+  console.log("adding user information into the req object", userId);
+  User.findOne({
+      where: {
+        id: userId
+      }
+    })
+    .then((user) => {
+      done(null, {
+        id: user.id,
+        username: user.username
+      });
+        //^ store the serialized information into the request object
+    })
+    .catch((user, err) => {
+      done(err, user);
+    })
+});
 
 
 const hbs = exphbs.create({
@@ -50,8 +110,40 @@ const galleryPost = (req) => {
     })
 }
 
+const loginCreate = (req) => {
+  User.create({
+    username: req.body.username,
+    password: req.body.password
+  })
+  .then((data) => {
+    console.log("Created user!");
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
+
 app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
+
+app.post("/login/new", (req, res) => {
+  loginCreate(req);
+  res.redirect("/");
+  res.end();
+})
+
+app.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login'
+}));
+
+app.get("/login", (req, res) => {
+  var errorMessage = null;
+  res.render("partials/login", {
+    error: errorMessage
+  })
+})
 
 app.get("/", (req, res) => {
   Picture.findAll()
@@ -93,41 +185,40 @@ app.post("/gallery", (req, res) => {
   res.end();
 });
 
-app.delete("/gallery/:id", (req, res) => {
-  Picture.destroy({
-    where: {
-      id: parseInt(req.params.id)
-    }
+app.route("/gallery/:id")
+  .put((req, res) => {
+    Picture.update({
+        link: req.body.link,
+        Author: req.body.Author,
+        description: req.body.description
+      }, {
+        where: {
+          id: parseInt(req.params.id)
+        }
+      })
+      .then((picture) => {
+        console.log("Updated!");
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    res.redirect(`/gallery/${parseInt(req.params.id)}/edit`);
+    res.end();
   })
-  .then((picture) => {
-    console.log(`ID: ${req.params.id} is deleted!`);
+  .delete((req, res) => {
+    Picture.destroy({
+        where: {
+          id: parseInt(req.params.id)
+        }
+      })
+      .then((picture) => {
+        console.log(`ID: ${req.params.id} is deleted!`);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    res.end();
   })
-  .catch((err) => {
-    console.log(err);
-  })
-  res.end();
-});
-
-app.put("/gallery/:id/", (req, res) => {
-  Picture.update({
-    link: req.body.link,
-    Author: req.body.Author,
-    description: req.body.description
-  },
-  {
-    where: {
-      id: parseInt(req.params.id)
-    }
-  })
-  .then((picture) => {
-    console.log("Updated!");
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-  res.redirect(`/gallery/${parseInt(req.params.id)}/edit`);
-  res.end();
-})
 
 app.get("/gallery/:id/edit", (req, res) => {
   Picture.findById(parseInt(req.params.id))
