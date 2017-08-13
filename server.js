@@ -11,6 +11,16 @@ const methodOverride = require("method-override");
 const passport = require("passport");
 const session = require("express-session");
 const LocalStrategy = require("passport-local").Strategy;
+const RedisStore = require("connect-redis")(session);
+const CONFIG = require("./config/config.json");
+
+app.use(session({
+  store: new RedisStore(),
+  secret: CONFIG.SESSION_SECRET,
+  cookie: {
+    maxage: 600
+  }
+}));
 
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(methodOverride(function(req, res) {
@@ -112,12 +122,12 @@ const galleryPost = (req) => {
 }
 
 const loginCreate = (req) => {
-  User.create({
-      username: req.body.username,
-      password: req.body.password
-    })
+  User.findOrCreate({
+    where: { username: req.body.username },
+    defaults: { password: req.body.pasword }
+  })
     .then((data) => {
-      console.log("Created user!");
+      console.log("DATA FROM LOGIN CREATE", data[1]);
     })
     .catch((err) => {
       console.log(err);
@@ -147,25 +157,20 @@ app.get("/login", (req, res) => {
 })
 
 app.get("/", (req, res) => {
-
-  Picture.findAll()
+  Picture.findAll({
+    order: [ [ "createdAt", "DESC"]]
+  })
     .then((picture) => {
-      var first = picture[picture.length - 1];
-      var second = picture[picture.length - 2];
-      var third = picture[picture.length - 3];
-      var fourth = picture[picture.length - 4];
-      console.log("FIRST", first)
-      var moddedPicture = {
-        first: first,
-        second: second,
-        third: third,
-        fourth: fourth
-      }
       res.render("home", {
-        pictures: moddedPicture,
+        pictures: picture,
         user: req.user
       })
     });
+});
+
+app.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.redirect("/");
 });
 
 app.get("/gallery/new", (req, res) => {

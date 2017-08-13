@@ -1,12 +1,16 @@
-<h1>_ARCHITEKT</h1>{{!--
-{{>login}}
-<br>
-<br>
-{{>newlogin}} --}}
-
 {{#if user}}
-  {{!-- {{>new}} --}}
-  <label class="dropdown">
+
+  <form action="/logout" method="get">
+    <input type="submit" value="Log Out" name="Submit" class="logoutButton" />
+  </form>
+  <br>
+
+  <div id="header">
+    <h1>_ARCHITEKT</h1>
+  </div>
+
+  <div class="buttonContainer">
+    <label class="dropdown">
     <div class="dd-button">
       Upload Image
     </div>
@@ -16,27 +20,34 @@
     <div id="uploadForm">
       <form action="/gallery" method="post">
       <label for="Author">Author</label>
-      <input id="Author" type="text" name="Author" placeholder="Author of Picture">
-      <br>
-      <label for="description">Description</label>
-      <input id = "description" type="text" name="description" placeholder="Description">
-      <br>
-      <label for="link">Link</label>
-      <input id = "link" type="text" name="link" placeholder="Link">
-      <br>
-      <input type="submit" name="" value="Send">
+    <input id="Author" type="text" name="Author" placeholder="Author of Picture">
+    <br>
+    <label for="description">Description</label>
+    <input id="description" type="text" name="description" placeholder="Description">
+    <br>
+    <label for="link">Link</label>
+    <input id="link" type="text" name="link" placeholder="Link">
+    <br>
+    <input type="submit" name="" value="Send">
     </form>
-    </div>
-    <div class="error">
-      <strong>{{error}}</strong>
-    </div>
-
-
+  </div>
+  <div class="error">
+    <strong>{{error}}</strong>
+  </div>
 
   </label>
+
+  </div>
+
+
 {{else}}
-  {{!-- {{>login}} {{>newlogin}} --}}
-  <label class="dropdown">
+
+  <div id="header">
+    <h1>_ARCHITEKT</h1>
+  </div>
+
+  <div class="buttonContainer">
+    <label class="dropdown">
     <div class="dd-button">
         Login
       </div>
@@ -44,44 +55,38 @@
   <input type="checkbox" class="dd-input" id="test">
 
   <div id="loginForm">
-    <form action="/login" method="post">
+    {{!-- <form action="/login/" method="post"> --}}
+    <form id="user-form">
       <div>
         <label>Username:</label>
-  <input id="username" type="text" name="username" />
+    <input id="username" type="text" name="username" />
   </div>
   <div>
     <label>Password:</label>
     <input id="password" type="text" name="password" />
   </div>
   <div>
-    <input type="submit" value="Log In" />
+    <input id="user-login" type="submit" value="Log In" />
+    <input id ="user-new" type="submit" value="New User" />
   </div>
   </form>
   </div>
+
   </label>
+  </div>
+
+
 
 {{/if}}
 
 <div class="container">
-  <div class="picture">
-    <img class="pictureFile" src= {{pictures.first.link}} />
-    <br>
-    <p class="author">{{pictures.first.Author}}</p>
-    <p class="description">{{pictures.first.description}}</p>
-  </div>
-  <div class="picture">
-    <img class="pictureFile" src= {{pictures.second.link}} />
-    <p class="author">{{pictures.second.Author}}</p>
-    <p class="description">{{pictures.second.description}}</p>
-  </div>
-  <div class="picture">
-    <img class="pictureFile" src= {{pictures.third.link}} />
-    <p class="author">{{pictures.third.Author}}</p>
-    <p class="description">{{pictures.third.description}}</p>
-  </div>
-  <div class="picture">
-    <img class="pictureFile" src= {{pictures.fourth.link}} />
-    <p class="author">{{pictures.fourth.Author}}</p>
-    <p class="description">{{pictures.fourth.description}}</p>
-  </div>
+  {{#each pictures}}
+    <div class="picture">
+
+      <img class="pictureFile" src= {{link}} />
+      <strong class="author">Author:{{Author}}</strong><br>
+      <strong class="description">Description:{{description}}</strong><br>
+    </div>
+  {{/each}}
+
 </div>
