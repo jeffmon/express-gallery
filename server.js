@@ -51,15 +51,19 @@ passport.use(new LocalStrategy(
         }
       })
       .then((user) => {
-        if (user.password === password) {
-          console.log(user.dataValues);
-          return done(null, user);
-        } else {
-          console.log("Incorrect password");
-          return done(null, false, {
-            message: "Incorrect Password"
+        bcrypt.compare(password, user.password)
+          .then(result => {
+            if(result) {
+              return done(null, user);
+            } else{
+              return done(null, false, {
+                message: "Incorrect Password"
+              })
+            }
           })
-        }
+          .catch(err => {
+            console.log(err);
+          })
       })
       .catch((err) => {
         console.log("Username not found");
@@ -147,12 +151,15 @@ app.set("view engine", "hbs");
 
 app.post("/login/new", (req, res) => {
   loginCreate(req, res);
+  res.redirect("/");
 })
 
 app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login'
-}));
+}), (req, res) => {
+  res.redirect("/");
+});
 
 app.get("/login", (req, res) => {
   var errorMessage = null;

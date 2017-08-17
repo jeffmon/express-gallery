@@ -82,11 +82,14 @@ body {
 #header {
   font-family: 'Archivo', sans-serif;
   color: grey;
+  display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: row;
   flex-direction: row;
+  -webkit-justify-content: center;
   justify-content: center;
-  align-items: center;
-  width: 80%; }
+  -webkit-align-items: center;
+  align-items: center; }
   @media screen and (min-width: 540px) {
     #header {
       font-size: 35px; } }
