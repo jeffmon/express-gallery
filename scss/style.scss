@@ -1,19 +1,11 @@
-#header {
-  text-align: center;
-  font-family: 'Archivo', sans-serif;
-  color: grey;
-  font-size: 1.5rem;
+body{
+  font-family: 'Roboto Condensed', sans-serif;
+
 }
 
 .dropdown {
   display: inline-block;
   position: relative;
-}
-
-.buttonContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
 }
 
 .dd-button {
@@ -25,13 +17,11 @@
   cursor: pointer;
   white-space: nowrap;
   color: grey;
-  font-family: 'Archivo', sans-serif;
 }
 
 .logoutButton {
   @extend .dd-button;
   float: right;
-  font-family: 'Archivo', sans-serif;
   font-size: 15px;
 }
 
@@ -85,10 +75,12 @@
 
 .author {
   font-size: 16px;
+  color: rgb(145, 145, 145);
 }
 
 .description {
   font-size: 12px;
+  color: rgb(145, 145, 145);
 }
 
 .container {
@@ -102,8 +94,32 @@
   }
 }
 
+#header {
+  font-family: 'Archivo', sans-serif;
+  color: grey;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  @media screen and (min-width: 540px) {
+      font-size: 35px;
+  }
+}
+
+#quote {
+  font-size: 12px;
+  color: rgb(171, 171, 171);
+  width: 100%;
+  margin-left: 2px;
+  font-family: 'Archivo', sans-serif;
+
+  @media screen and (max-width: 540px){
+    display: none;
+  }
+}
+
 .picture {
-  background-color: yellow;
   width: 100%;
   height: 14rem;
   margin-bottom: 55px;
@@ -115,6 +131,54 @@
     object-fit: cover;
   }
   @media screen and (min-width: 540px) {
-    width: calc(33% - 0.5rem);
+    width: 30%;
+    height: 16rem;
+    margin: 5px;
+    margin-bottom: 55px;
   }
+}
+
+.editPicture {
+  width: 100%;
+  height: 14rem;
+  margin-bottom: 55px;
+  color: grey;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @media screen and (min-width: 540px) {
+    height: 100%;
+    margin: 5px;
+    height: 32rem;
+    margin-bottom: 55px;
+  }
+}
+
+.button {
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 10px 30px 10px 20px;
+  background-color: #ffffff;
+  cursor: pointer;
+  white-space: nowrap;
+  color: grey;
+  font-size: 1.1rem;
+  @media screen and (min-width: 540px) {
+
+  }
+}
+
+.uploadContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

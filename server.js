@@ -13,6 +13,8 @@ const session = require("express-session");
 const LocalStrategy = require("passport-local").Strategy;
 const RedisStore = require("connect-redis")(session);
 const CONFIG = require("./config/config.json");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 app.use(session({
   store: new RedisStore(),
@@ -121,27 +123,30 @@ const galleryPost = (req) => {
     })
 }
 
+
 const loginCreate = (req) => {
-  User.findOrCreate({
-    where: { username: req.body.username },
-    defaults: { password: req.body.pasword }
+  bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+    User.findOrCreate({
+      where: { username: req.body.username },
+      defaults: { password: hash }
+    })
+      .spread((user, created) => {
+        console.log(user.get({
+          plain: true
+        }))
+        console.log(created);
+      })
   })
-    .then((data) => {
-      console.log("DATA FROM LOGIN CREATE", data[1]);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
 }
+
+
 
 
 app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 
 app.post("/login/new", (req, res) => {
-  loginCreate(req);
-  res.redirect("/");
-  res.end();
+  loginCreate(req, res);
 })
 
 app.post('/login', passport.authenticate('local', {
@@ -158,8 +163,10 @@ app.get("/login", (req, res) => {
 
 app.get("/", (req, res) => {
   Picture.findAll({
-    order: [ [ "createdAt", "DESC"]]
-  })
+      order: [
+        ["createdAt", "DESC"]
+      ]
+    })
     .then((picture) => {
       res.render("home", {
         pictures: picture,
@@ -194,7 +201,6 @@ app.get("/gallery/:id", (req, res) => {
         description: picture[0].description
       };
       res.render("picture", pictureData);
-      console.log(`Getting ID: ${req.params.id}`);
     })
 });
 
@@ -232,11 +238,11 @@ app.route("/gallery/:id")
       })
       .then((picture) => {
         console.log(`ID: ${req.params.id} is deleted!`);
+        res.redirect("/");
       })
       .catch((err) => {
         console.log(err);
       })
-    res.end();
   })
 
 app.get("/gallery/:id/edit", (req, res) => {

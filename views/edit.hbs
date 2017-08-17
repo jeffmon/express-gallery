@@ -1,26 +1,32 @@
-<div>
-  <form action="/gallery/{{id}}" method="post">
-  <input type="hidden" name="_method" value="PUT">
-  <label for="Author">Author</label>
-  <input id="Author" type="text" name="Author" value={{Author}}>
-  <br>
-  <label for="description">Description</label>
-  <input id = "description" type="text" name="description" value={{description}}>
-  <br>
-  <label for="link">Link</label>
-  <input id = "link" type="text" name="link" value={{link}}>
-  <br>
-  <input type="submit" name="" value="Send">
-</form>
-</div>
-<div class="error">
-  <strong>{{error}}</strong>
-</div>
+<div class="container">
 
-<div>
-  <div class="pictures">
-    <strong>Author:{{Author}}</strong><br>
-    <strong>Description:{{description}}</strong><br>
-    <img src={{link}} />
+  <div class="editPicture">
+    <form action="/" method="get">
+      <input type="submit" value="Main" name="Submit" class="button" />
+    </form>
+    <br>
+    <img src= {{link}} />
+
+      <div class="buttonContainer">
+        <form action="/gallery/{{id}}" method="post">
+          <input type="hidden" name="_method" value="PUT">
+          <label for="Author">Author</label>
+          <input id="Author" type="text" name="Author" value="{{Author}}">
+          <br>
+          <label for="description">Description</label>
+          <input id="description" type="text" name="description" value="{{description}}">
+          <br>
+          <label for="link">Link</label>
+          <input id="link" type="text" name="link" value= {{link}}>
+          <br>
+          <input class="button" type="submit" name="" value="Edit">
+        </form>
+        <form method="post" action="/gallery/{{id}}/">
+          <input type="hidden" name="_method" value="DELETE">
+          <input class="button" type="submit" value="Delete">
+        </form>
+      </div>
+
+
   </div>
 </div>
