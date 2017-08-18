@@ -1,14 +1,59 @@
-<h4>Login</h4>
-<form action="/login" method="post">
-    <div>
-        <label>Username:</label>
-        <input id="username" type="text" name="username"/>
+<hr class="line">
+
+<div id="header">
+  <h1>_ARCHITEKT</h1>
+  <div id="quote">
+    <p>Welcome to our online portfolio, we are a small group of passionate designers
+      and architets, looking to change and create amazing digital images to inspire
+      others to follow in our innovative steps. Free Architect WordPress Theme</p>
+  </div>
+</div>
+
+
+<div class="uploadContainer">
+  <label class="dropdown">
+    <div class="dd-button">
+      Login
     </div>
-    <div>
-        <label>Password:</label>
-        <input id="password" type="text" name="password"/>
+    <input type="checkbox" class="dd-input" id="test">
+    <div id="loginForm">
+      <form id="user-form" action="/login" method="post">
+        <div>
+          <label>Username:</label>
+          <input id="username" type="text" name="username" />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input id="password" type="password" name="password" />
+        </div>
+        <div>
+          <input id="user-login" type="submit" value="Log In" />
+        </div>
+      </form>
     </div>
-    <div>
-        <input type="submit" value="Log In"/>
+  </label>
+
+  <label class="dropdown">
+    <div class="dd-button">
+      New User
     </div>
-</form>
+    <input type="checkbox" class="dd-input" id="test">
+    <div id="loginForm">
+      <form id="user-form" action="/login/new" method="post">
+        <div>
+          <label>New Username:</label>
+          <input id="username" type="text" name="username" />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input id="password" type="password" name="password" />
+        </div>
+        <div>
+          <input id="user-login" type="submit" value="Create User" />
+        </div>
+      </form>
+    </div>
+
+  </label>
+
+</div>

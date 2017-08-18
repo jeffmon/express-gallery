@@ -1,17 +1,49 @@
-<div>
-  <form action="/gallery" method="post">
-  <label for="Author">Author</label>
-  <input id="Author" type="text" name="Author" placeholder="Author of Picture">
-  <br>
-  <label for="description">Description</label>
-  <input id = "description" type="text" name="description" placeholder="Description">
-  <br>
-  <label for="link">Link</label>
-  <input id = "link" type="text" name="link" placeholder="Link">
-  <br>
-  <input type="submit" name="" value="Send">
+<form action="/logout" method="get">
+  <input type="submit" value="Log Out" name="Submit" class="logoutButton" />
 </form>
+<br>
+<br>
+
+<hr class="line">
+
+<div id="header">
+  <h1>_ARCHITEKT</h1>
+  <div id="quote">
+    <p>Welcome to our online portfolio, we are a small group of passionate designers
+      and architets, looking to change and create amazing digital images to inspire
+      others to follow in our innovative steps. Free Architect WordPress Theme</p>
+  </div>
+
 </div>
-<div class="error">
-  <strong>{{error}}</strong>
+
+<div class="uploadContainer">
+  <label class="dropdown">
+    <div class="dd-button">
+      Upload Image
+    </div>
+
+    <input type="checkbox" class="dd-input" id="test">
+
+    <div id="uploadForm">
+      <form action="/gallery" method="post">
+        <label for="Author">Author</label>
+        <input id="Author" type="text" name="Author" placeholder="Author of Picture">
+        <br>
+        <label for="description">Description</label>
+        <input id="description" type="text" name="description" placeholder="Description">
+        <br>
+        <label for="link">Link</label>
+        <input id="link" type="text" name="link" placeholder="Link">
+        <br>
+        <input type="submit" name="" value="Send">
+      </form>
+    </div>
+    <div class="error">
+      <strong>{{error}}</strong>
+    </div>
+
+  </label>
+
 </div>
+
+<script src="js/metaFields.js" charset="utf-8"></script>
