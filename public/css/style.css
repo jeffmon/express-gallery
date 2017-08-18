@@ -102,21 +102,39 @@ body {
     #quote {
       display: none; } }
 
-.picture {
+.picture, .mainImage {
   width: 100%;
   height: 14rem;
   margin-bottom: 55px;
   color: grey; }
-  .picture img {
+  .picture img, .mainImage img {
     width: 100%;
     height: 100%;
     object-fit: cover; }
   @media screen and (min-width: 540px) {
-    .picture {
+    .picture, .mainImage {
       width: 30%;
-      height: 16rem;
+      height: 10rem;
       margin: 5px;
       margin-bottom: 55px; } }
+
+hr.line {
+  border: 0;
+  height: 1px;
+  background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  width: 88%; }
+
+.mainImage {
+  margin-bottom: 6px;
+  height: 10rem; }
+  @media screen and (min-width: 540px) {
+    .mainImage {
+      width: 92%;
+      margin-bottom: 10px;
+      height: 20rem; } }
 
 .editPicture {
   width: 100%;

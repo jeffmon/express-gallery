@@ -53,9 +53,9 @@ passport.use(new LocalStrategy(
       .then((user) => {
         bcrypt.compare(password, user.password)
           .then(result => {
-            if(result) {
+            if (result) {
               return done(null, user);
-            } else{
+            } else {
               return done(null, false, {
                 message: "Incorrect Password"
               })
@@ -131,9 +131,13 @@ const galleryPost = (req) => {
 const loginCreate = (req) => {
   bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
     User.findOrCreate({
-      where: { username: req.body.username },
-      defaults: { password: hash }
-    })
+        where: {
+          username: req.body.username
+        },
+        defaults: {
+          password: hash
+        }
+      })
       .spread((user, created) => {
         console.log(user.get({
           plain: true
