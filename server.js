@@ -15,6 +15,9 @@ const RedisStore = require("connect-redis")(session);
 const CONFIG = require("./config/config.json");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+const { photoMeta } = require("./collections/photoMeta.js");
+
+console.log("PHOTO META: ", photoMeta);
 
 app.use(session({
   store: new RedisStore(),
@@ -120,7 +123,20 @@ const galleryPost = (req) => {
       description: req.body.description
     })
     .then((data) => {
-      console.log("Posted!");
+      Picture.findAll({
+        limit: 1,
+        order: [ [ "createdAt", "DESC"] ]
+      })
+      .then((item) => {
+        var metaObj = req.body.meta;
+        metaObj.id = item[0].id;
+        photoMeta().insertOne( metaObj );
+        photoMeta().end();
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
     })
     .catch((err) => {
       console.log(err);

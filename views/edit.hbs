@@ -7,26 +7,34 @@
     <br>
     <img src= {{link}} />
 
-      <div class="buttonContainer">
-        <form action="/gallery/{{id}}" method="post">
-          <input type="hidden" name="_method" value="PUT">
-          <label for="Author">Author</label>
-          <input id="Author" type="text" name="Author" value="{{Author}}">
-          <br>
-          <label for="description">Description</label>
-          <input id="description" type="text" name="description" value="{{description}}">
-          <br>
-          <label for="link">Link</label>
-          <input id="link" type="text" name="link" value= {{link}}>
-          <br>
-          <input class="button" type="submit" name="" value="Edit">
-        </form>
-        <form method="post" action="/gallery/{{id}}/">
-          <input type="hidden" name="_method" value="DELETE">
-          <input class="button" type="submit" value="Delete">
-        </form>
-      </div>
+    <div class="buttonContainer">
+      <form action="/gallery/{{id}}" method="post">
+        <input type="hidden" name="_method" value="PUT">
+        <label for="Author">Author</label>
+        <input id="Author" type="text" name="Author" value="{{Author}}">
+        <br>
+        <label for="description">Description</label>
+        <input id="description" type="text" name="description" value="{{description}}">
+        <br>
+        <label for="link">Link</label>
+        <input id="link" type="text" name="link" value= {{link}}>
+        <br>
+        <input class="button" type="submit" name="" value="Edit">
+        <div class="add_meta_field">
+          <ul id="meta_fields"></ul>
+          <button class ="button" id="add_meta_field_button" type="button">Add Meta Data</button>
+        </div>
+      </form>
+      <br>
+      <form method="post" action="/gallery/{{id}}/">
+        <input type="hidden" name="_method" value="DELETE">
+        <input class="button" type="submit" value="Delete">
+      </form>
+
+    </div>
 
 
   </div>
 </div>
+
+<script src="/js/metaFields.js" charset="utf-8"></script>
