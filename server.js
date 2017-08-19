@@ -272,17 +272,31 @@ app.route("/gallery/:id")
       })
   })
 
+const metaToString = (key, val) => {
+  return val;
+}
+
 app.get("/gallery/:id/edit", (req, res) => {
-  Picture.findById(parseInt(req.params.id))
+  var pictureID = parseInt(req.params.id);
+  Picture.findById(pictureID)
     .then((picture) => {
-      var pictureData;
-      pictureData = {
-        link: picture.dataValues.link,
-        Author: picture.dataValues.Author,
-        description: picture.dataValues.description,
-        id: parseInt(picture.dataValues.id)
-      };
-      res.render("edit", pictureData)
+      var query = { id: pictureID };
+      photoMeta().findOne(query, {id:0, _id:0}, (err, data) => {
+        if(data){
+          var metaTags = JSON.stringify(data, metaToString);
+          var pictureData;
+          pictureData = {
+            link: picture.dataValues.link,
+            Author: picture.dataValues.Author,
+            description: picture.dataValues.description,
+            id: pictureID,
+            meta: data
+          };
+          res.render("edit", pictureData)
+        } else{
+          console.log("ERR", err);
+        }
+      });
     })
     .catch((err) => {
       console.log(err);

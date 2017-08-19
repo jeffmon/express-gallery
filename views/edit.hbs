@@ -6,6 +6,12 @@
     </form>
     <br>
     <img src= {{link}} />
+    <br>
+    <div class="metaTags">
+      {{#each meta}}
+      <li>{{@key}}: {{this}}</li>
+      {{/each}}
+    </div>
 
     <div class="buttonContainer">
       <form action="/gallery/{{id}}" method="post">
