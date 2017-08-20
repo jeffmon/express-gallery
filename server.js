@@ -286,7 +286,11 @@ app.route("/gallery/:id")
                 $unset: removeValues(metaRemove)
               }
             )
-          } else{
+          } else if (data === null && req.body.meta === undefined){
+            var metaObj = {};
+            metaObj.id = pictureID;
+            photoMeta().insertOne(metaObj);
+          } else {
             var metaObj = req.body.meta;
             metaObj.id = pictureID;
             photoMeta().insertOne(metaObj);
