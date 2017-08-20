@@ -167,9 +167,6 @@ const loginCreate = (req) => {
   })
 }
 
-
-
-
 app.engine("hbs", hbs.engine);
 app.set("view engine", "hbs");
 
@@ -255,34 +252,8 @@ const removeValues = (obj) => {
 app.route("/gallery/:id")
   .put((req, res) => {
     var pictureID = parseInt(req.params.id);
-    var addMeta = req.body.meta;
-    var metaRemove = req.body;
-    console.log(metaRemove);
-    delete metaRemove.Author;
-    delete metaRemove.description;
-    delete metaRemove.link;
 
-    var query = { id: pictureID };
-    photoMeta().findOne(query, (err, data) => {
-      if(data){
-        photoMeta().update(
-          query,
-          {
-            $set: addMeta
-          }
-        )
-        photoMeta().update(
-          query,
-          {
-            $unset: removeValues(metaRemove)
-          }
-        )
-      } else{
-        var metaObj = req.body.meta;
-        metaObj.id = pictureID;
-        photoMeta().insertOne(metaObj);
-      }
-    })
+    console.log("CONSOLE LOG", req.body)
 
     Picture.update({
         link: req.body.link,
@@ -294,7 +265,33 @@ app.route("/gallery/:id")
         }
       })
       .then((picture) => {
-        console.log("Yes");
+        var addMeta = req.body.meta;
+        var metaRemove = req.body;
+        delete metaRemove.Author;
+        delete metaRemove.description;
+        delete metaRemove.link;
+
+        var query = { id: pictureID };
+        photoMeta().findOne(query, (err, data) => {
+          if(data){
+            photoMeta().update(
+              query,
+              {
+                $set: addMeta
+              }
+            )
+            photoMeta().update(
+              query,
+              {
+                $unset: removeValues(metaRemove)
+              }
+            )
+          } else{
+            var metaObj = req.body.meta;
+            metaObj.id = pictureID;
+            photoMeta().insertOne(metaObj);
+          }
+        })
       })
       .catch((err) => {
         console.log(err);
@@ -303,13 +300,14 @@ app.route("/gallery/:id")
     res.end();
   })
   .delete((req, res) => {
+    var pictureID = parseInt(req.params.id)
     Picture.destroy({
         where: {
-          id: parseInt(req.params.id)
+          id: pictureID
         }
       })
       .then((picture) => {
-        console.log(`ID: ${req.params.id} is deleted!`);
+        photoMeta().findOneAndDelete({ id: pictureID});
         res.redirect("/");
       })
       .catch((err) => {
