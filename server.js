@@ -136,7 +136,6 @@ const galleryPost = (req) => {
           var metaObj = req.body.meta;
           metaObj.id = item[0].id;
           photoMeta().insertOne(metaObj);
-          photoMeta().end();
         })
         .catch(err => {
           console.log(err);
@@ -252,18 +251,38 @@ const removeValues = (obj) => {
   return obj;
 }
 
+
 app.route("/gallery/:id")
   .put((req, res) => {
     var pictureID = parseInt(req.params.id);
+    var addMeta = req.body.meta;
     var metaRemove = req.body;
     delete metaRemove.Author;
     delete metaRemove.description;
     delete metaRemove.link;
-    console.log("CONSOLE LOG:", req);
-    photoMeta().update(
-      { id: pictureID },
-      { $unset: removeValues(metaRemove)}
-    )
+
+    var query = { id: pictureID };
+    photoMeta().findOne(query, (err, data) => {
+      if(data){
+        photoMeta().update(
+          { id: pictureID },
+          {
+            $set: addMeta
+          }
+        )
+        photoMeta().update(
+          { id: pictureID },
+          {
+            $unset: removeValues(metaRemove)
+          }
+        )
+      } else{
+        var metaObj = req.body.meta;
+        metaObj.id = pictureID;
+        photoMeta().insertOne(metaObj);
+      }
+    })
+
     Picture.update({
         link: req.body.link,
         Author: req.body.Author,
@@ -274,7 +293,7 @@ app.route("/gallery/:id")
         }
       })
       .then((picture) => {
-        console.log("Updated!");
+        console.log("Yes");
       })
       .catch((err) => {
         console.log(err);
@@ -325,7 +344,16 @@ app.get("/gallery/:id/edit", (req, res) => {
             res.send(html);
           });
         } else {
-          console.log("ERR", err);
+          var pictureData;
+          pictureData = {
+            link: picture.dataValues.link,
+            Author: picture.dataValues.Author,
+            description: picture.dataValues.description,
+            id: pictureID,
+          };
+          res.render("edit", pictureData, (err, html) => {
+            res.send(html);
+          });
         }
       });
     })
