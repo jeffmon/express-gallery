@@ -133,9 +133,14 @@ hr.line {
 
 #quote {
   font-size: 12px;
+  max-width: 40%;
   color: #ababab;
   font-family: 'Archivo', sans-serif;
-  width: 70%; }
+  width: 70%;
+  border-left: solid #ababab;
+  border-width: 1px;
+  padding-left: 2px;
+  margin-left: 2px; }
   @media screen and (max-width: 540px) {
     #quote {
       display: none; } }
