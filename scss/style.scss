@@ -110,9 +110,13 @@ body{
   justify-content: center;
   -webkit-align-items: center;
   align-items: center;
+  margin-top: -30px;
+  margin-bottom: -30px;
   @media screen and (min-width: 540px) {
       font-size: 35px;
       width: 80%;
+      margin-top: -40px;
+      margin-bottom: -40px;
   }
 }
 
@@ -145,11 +149,15 @@ hr.line {
   width: 88%;
 }
 
+.pictureFile:hover{
+  opacity: 0.75;
+}
+
 #quote {
   font-size: 12px;
   color: rgb(171, 171, 171);
   font-family: 'Archivo', sans-serif;
-
+  width: 70%;
   @media screen and (max-width: 540px){
     display: none;
   }
