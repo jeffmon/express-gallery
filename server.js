@@ -257,6 +257,7 @@ app.route("/gallery/:id")
     var pictureID = parseInt(req.params.id);
     var addMeta = req.body.meta;
     var metaRemove = req.body;
+    console.log(metaRemove);
     delete metaRemove.Author;
     delete metaRemove.description;
     delete metaRemove.link;
@@ -265,13 +266,13 @@ app.route("/gallery/:id")
     photoMeta().findOne(query, (err, data) => {
       if(data){
         photoMeta().update(
-          { id: pictureID },
+          query,
           {
             $set: addMeta
           }
         )
         photoMeta().update(
-          { id: pictureID },
+          query,
           {
             $unset: removeValues(metaRemove)
           }
@@ -324,9 +325,7 @@ app.get("/gallery/:id/edit", (req, res) => {
   var pictureID = parseInt(req.params.id);
   Picture.findById(pictureID)
     .then((picture) => {
-      var query = {
-        id: pictureID
-      };
+      var query = { id: pictureID };
       photoMeta().findOne(query, {
         id: 0,
         _id: 0
