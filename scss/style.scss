@@ -18,6 +18,10 @@ body{
   color: grey;
 }
 
+.metaTags{
+  font-size: 16px;
+}
+
 .logoutButton {
   @extend .dd-button;
   float: right;

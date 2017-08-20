@@ -15,6 +15,9 @@ body {
   white-space: nowrap;
   color: grey; }
 
+.metaTags {
+  font-size: 16px; }
+
 .logoutButton {
   float: right;
   font-size: 15px; }

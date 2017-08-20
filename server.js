@@ -5,7 +5,6 @@ const Picture = db.Picture;
 const User = db.User;
 const app = express();
 const bp = require("body-parser");
-app.use(bp.urlencoded());
 const exphbs = require("express-handlebars");
 const methodOverride = require("method-override");
 const passport = require("passport");
@@ -15,9 +14,13 @@ const RedisStore = require("connect-redis")(session);
 const CONFIG = require("./config/config.json");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-const { photoMeta } = require("./collections/photoMeta.js");
+const {
+  photoMeta
+} = require("./collections/photoMeta.js");
 
 console.log("PHOTO META: ", photoMeta);
+
+app.use(bp.urlencoded());
 
 app.use(session({
   store: new RedisStore(),
@@ -124,18 +127,20 @@ const galleryPost = (req) => {
     })
     .then((data) => {
       Picture.findAll({
-        limit: 1,
-        order: [ [ "createdAt", "DESC"] ]
-      })
-      .then((item) => {
-        var metaObj = req.body.meta;
-        metaObj.id = item[0].id;
-        photoMeta().insertOne( metaObj );
-        photoMeta().end();
-      })
-      .catch(err => {
-        console.log(err);
-      })
+          limit: 1,
+          order: [
+            ["createdAt", "DESC"]
+          ]
+        })
+        .then((item) => {
+          var metaObj = req.body.meta;
+          metaObj.id = item[0].id;
+          photoMeta().insertOne(metaObj);
+          photoMeta().end();
+        })
+        .catch(err => {
+          console.log(err);
+        })
 
     })
     .catch((err) => {
@@ -173,6 +178,7 @@ app.post("/login/new", (req, res) => {
   loginCreate(req, res);
   res.redirect("/");
 })
+
 
 app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
@@ -237,15 +243,34 @@ app.post("/gallery", (req, res) => {
   res.end();
 });
 
+const removeValues = (obj) => {
+  for(var key in obj){
+    if(obj.hasOwnProperty(key)){
+      obj[key] = "";
+    }
+  }
+  return obj;
+}
+
 app.route("/gallery/:id")
   .put((req, res) => {
+    var pictureID = parseInt(req.params.id);
+    var metaRemove = req.body;
+    delete metaRemove.Author;
+    delete metaRemove.description;
+    delete metaRemove.link;
+    console.log("CONSOLE LOG:", req);
+    photoMeta().update(
+      { id: pictureID },
+      { $unset: removeValues(metaRemove)}
+    )
     Picture.update({
         link: req.body.link,
         Author: req.body.Author,
         description: req.body.description
       }, {
         where: {
-          id: parseInt(req.params.id)
+          id: pictureID
         }
       })
       .then((picture) => {
@@ -280,10 +305,14 @@ app.get("/gallery/:id/edit", (req, res) => {
   var pictureID = parseInt(req.params.id);
   Picture.findById(pictureID)
     .then((picture) => {
-      var query = { id: pictureID };
-      photoMeta().findOne(query, {id:0, _id:0}, (err, data) => {
-        if(data){
-          var metaTags = JSON.stringify(data, metaToString);
+      var query = {
+        id: pictureID
+      };
+      photoMeta().findOne(query, {
+        id: 0,
+        _id: 0
+      }, (err, data) => {
+        if (data) {
           var pictureData;
           pictureData = {
             link: picture.dataValues.link,
@@ -292,8 +321,10 @@ app.get("/gallery/:id/edit", (req, res) => {
             id: pictureID,
             meta: data
           };
-          res.render("edit", pictureData)
-        } else{
+          res.render("edit", pictureData, (err, html) => {
+            res.send(html);
+          });
+        } else {
           console.log("ERR", err);
         }
       });

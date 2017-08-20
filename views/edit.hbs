@@ -6,16 +6,19 @@
     </form>
     <br>
     <img src= {{link}} />
-    <br>
-    <div class="metaTags">
-      {{#each meta}}
-      <li>{{@key}}: {{this}}</li>
-      {{/each}}
-    </div>
 
     <div class="buttonContainer">
       <form action="/gallery/{{id}}" method="post">
         <input type="hidden" name="_method" value="PUT">
+
+        <div class="metaTags">
+          <label for="Tags">Tags</label>
+          {{#each meta}}
+            <br>
+            <input type="checkbox" name="{{@key}}" value="{{this}}">{{@key}}: {{this}}
+          {{/each}}
+        </div>
+
         <label for="Author">Author</label>
         <input id="Author" type="text" name="Author" value="{{Author}}">
         <br>
@@ -25,10 +28,11 @@
         <label for="link">Link</label>
         <input id="link" type="text" name="link" value= {{link}}>
         <br>
+
         <input class="button" type="submit" name="" value="Edit">
         <div class="add_meta_field">
           <ul id="meta_fields"></ul>
-          <button class ="button" id="add_meta_field_button" type="button">Add Meta Data</button>
+          <button class="button" id="add_meta_field_button" type="button">Add Meta Data</button>
         </div>
       </form>
       <br>
