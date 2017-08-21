@@ -1,29 +1,25 @@
-const userLogin = document.getElementById("user-login");
-const userNew = document.getElementById("user-new");
+// Get the modal
+var modal = document.getElementById('myModal');
 
-const username = document.getElementById("username");
-const password = document.getElementById("password");
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
 
-var test;
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
 
-
-const post = (url, user, pass) => {
-  var params = `username=${user}&password=${pass}`;
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhr.send(params);
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
 }
 
-if(userLogin){
-  window.addEventListener("load", function() {
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
 
-    userLogin.addEventListener("click", () => {
-      post("/login", username.value, password.value);
-    }, false)
-
-    userNew.addEventListener("click", () => {
-      post("/login/new", username.value, password.value);
-    }, false)
-  })
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }

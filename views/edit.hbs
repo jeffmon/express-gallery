@@ -1,68 +1,84 @@
+<form action="/" method="get">
+  <input type="submit" value="Main" name="Submit" class="button" />
+</form>
+
+
+<hr class="line">
 <div class="container">
 
-  <div class="editPicture">
-    <form action="/" method="get">
-      <input type="submit" value="Main" name="Submit" class="button" />
-    </form>
-    <br>
 
-    <hr class="line">
-    <div class="container">
+<div id="header">
+  <h1>_ARCHITEKT</h1>
+  {{!-- <div class="verticalLine"></div> --}}
+  <div id="quote">
+    <p>Welcome to our online portfolio, we are a small group of passionate designers
+      and architects, looking to change and create amazing digital images to inspire
+      others to follow in our innovative steps. Free Architect WordPress Theme</p>
+  </div>
+</div>
+</div>
+<hr class="line">
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="editContainer">
+      <div class="editPicture">
 
 
-    <div id="header">
-      <h1>_ARCHITEKT</h1>
-      {{!-- <div class="verticalLine"></div> --}}
-      <div id="quote">
-        <p>Welcome to our online portfolio, we are a small group of passionate designers
-          and architects, looking to change and create amazing digital images to inspire
-          others to follow in our innovative steps. Free Architect WordPress Theme</p>
+
+        <div class="buttonContainer">
+          <form action="/gallery/{{id}}" method="post">
+            <input type="hidden" name="_method" value="PUT">
+
+            <div class="metaTags">
+              <label for="Tags">Tags</label>
+              {{#each meta}}
+                <br>
+                <input type="checkbox" name="{{@key}}" value="{{this}}">{{@key}}: {{this}}
+              {{/each}}
+            </div>
+
+            <label for="Author">Author</label>
+            <input id="Author" type="text" name="Author" value="{{Author}}">
+            <br>
+            <label for="description">Description</label>
+            <input id="description" type="text" name="description" value="{{description}}">
+            <br>
+            <label for="link">Link</label>
+            <input id="link" type="text" name="link" value= {{link}}>
+            <br>
+            <br>
+
+            <input class="button" type="submit" name="" value="Update">
+            <div class="add_meta_field">
+              <ul id="meta_fields"></ul>
+              <button class="button" id="add_meta_field_button" type="button">Add Meta Data</button>
+            </div>
+          </form>
+          <br>
+          <form method="post" action="/gallery/{{id}}/">
+            <input type="hidden" name="_method" value="DELETE">
+            <input class="button" type="submit" value="Delete">
+          </form>
+
+        </div>
+
+
       </div>
     </div>
-    </div>
-    <hr class="line">
-    <br>
-    <img src= {{link}} />
-
-    <div class="buttonContainer">
-      <form action="/gallery/{{id}}" method="post">
-        <input type="hidden" name="_method" value="PUT">
-
-        <div class="metaTags">
-          <label for="Tags">Tags</label>
-          {{#each meta}}
-            <br>
-            <input type="checkbox" name="{{@key}}" value="{{this}}">{{@key}}: {{this}}
-          {{/each}}
-        </div>
-
-        <label for="Author">Author</label>
-        <input id="Author" type="text" name="Author" value="{{Author}}">
-        <br>
-        <label for="description">Description</label>
-        <input id="description" type="text" name="description" value="{{description}}">
-        <br>
-        <label for="link">Link</label>
-        <input id="link" type="text" name="link" value= {{link}}>
-        <br>
-        <br>
-
-        <input class="button" type="submit" name="" value="Update">
-        <div class="add_meta_field">
-          <ul id="meta_fields"></ul>
-          <button class="button" id="add_meta_field_button" type="button">Add Meta Data</button>
-        </div>
-      </form>
-      <br>
-      <form method="post" action="/gallery/{{id}}/">
-        <input type="hidden" name="_method" value="DELETE">
-        <input class="button" type="submit" value="Delete">
-      </form>
-
-    </div>
-
-
   </div>
+
+</div>
+<div class="container">
+  <div class="editPictureOnly">
+<img src= {{link}} />
+  <button class="button" id="myBtn">Edit</button>
+</div>
 </div>
 
 <script src="/js/metaFields.js" charset="utf-8"></script>
+<script src="/js/app.js" charset="utf-8"></script>
