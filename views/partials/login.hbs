@@ -2,64 +2,50 @@
 <div class="container">
 
 
-<div id="header">
-  <h1>_ARCHITEKT</h1>
-  {{!-- <div class="verticalLine"></div> --}}
-  <div id="quote">
-    <p>Welcome to our online portfolio, we are a small group of passionate designers
-      and architects, looking to change and create amazing digital images to inspire
-      others to follow in our innovative steps. Free Architect WordPress Theme</p>
+  <div id="header">
+    <h1>_ARCHITEKT</h1>{{!-- <div class="verticalLine"></div> --}}
+    <div id="quote">
+      <p>Welcome to our online portfolio, we are a small group of passionate designers
+        and architects, looking to change and create amazing digital images to inspire
+        others to follow in our innovative steps. Free Architect WordPress Theme</p>
+    </div>
   </div>
-</div>
 </div>
 
 <hr class="line">
-<br>
 
-<div class="uploadContainer">
-  <label class="dropdown">
-    <div class="dd-button">
-      Login
-    </div>
-    <input type="checkbox" class="dd-input" id="test">
-    <div id="loginForm">
-      <form id="user-form" action="/login" method="post">
-        <div>
-          <label>Username:</label>
-          <input id="username" type="text" name="username" autocorrect="off"/>
-        </div>
-        <div>
-          <label>Password:</label>
-          <input id="password" type="password" name="password" autocorrect="off" />
-        </div>
-        <div>
-          <input id="user-login" type="submit" value="Log In" />
-        </div>
-      </form>
-    </div>
-  </label>
-
-  <label class="dropdown">
-    <div class="dd-button">
-      New User
-    </div>
-    <input type="checkbox" class="dd-input" id="test">
-    <div id="loginForm">
-      <form id="user-form" action="/login/new" method="post">
-        <div>
-          <label>New Username:</label>
-          <input id="username" type="text" name="username" autocorrect="off" autocomplete="new-username"  />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input id="password" type="password" name="password"autocorrect="off" autocomplete="new-password" />
-        </div>
-        <div>
-          <input id="user-login" type="submit" value="Create User" />
-        </div>
-      </form>
-    </div>
-
-  </label>
-
+<div class="container is-mobile">
+  <button class="button" id="myBtn">Log In</button>
 </div>
+
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="uploadContainer">
+
+      <div id="loginForm">
+        <form id="user-form" action="/login" method="post">
+          <div>
+            <label>Username:</label>
+            <input id="username" type="text" name="username" autocorrect="off" />
+          </div>
+          <div>
+            <label>Password:</label>
+            <input id="password" type="password" name="password" autocorrect="off" />
+          </div>
+          <div>
+            <input class="button" id="user-login" type="submit" value="Log In" />
+          </div>
+        </form>
+
+        <form action="/login/new" method="get">
+          <input type="submit" value="New User?" name="Submit" class="button" />
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<script src="/js/app.js" charset="utf-8"></script>

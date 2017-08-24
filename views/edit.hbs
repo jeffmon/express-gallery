@@ -4,18 +4,17 @@
 
 
 <hr class="line">
-<div class="container">
+<div class="container is-mobile">
 
 
-<div id="header">
-  <h1>_ARCHITEKT</h1>
-  {{!-- <div class="verticalLine"></div> --}}
-  <div id="quote">
-    <p>Welcome to our online portfolio, we are a small group of passionate designers
-      and architects, looking to change and create amazing digital images to inspire
-      others to follow in our innovative steps. Free Architect WordPress Theme</p>
+  <div id="header">
+    <h1>_ARCHITEKT</h1>{{!-- <div class="verticalLine"></div> --}}
+    <div id="quote">
+      <p>Welcome to our online portfolio, we are a small group of passionate designers
+        and architects, looking to change and create amazing digital images to inspire
+        others to follow in our innovative steps. Free Architect WordPress Theme</p>
+    </div>
   </div>
-</div>
 </div>
 <hr class="line">
 
@@ -25,15 +24,11 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-    <div class="editContainer">
-      <div class="editPicture">
+    <div class="container is-mobile">
 
-
-
-        <div class="buttonContainer">
+        <div class="container">
           <form action="/gallery/{{id}}" method="post">
             <input type="hidden" name="_method" value="PUT">
-
             <div class="metaTags">
               <label for="Tags">Tags</label>
               {{#each meta}}
@@ -52,33 +47,43 @@
             <input id="link" type="text" name="link" value= {{link}}>
             <br>
             <br>
-
-            <input class="button" type="submit" name="" value="Update">
             <div class="add_meta_field">
               <ul id="meta_fields"></ul>
               <button class="button" id="add_meta_field_button" type="button">Add Meta Data</button>
             </div>
+
+            <input class="button" type="submit" name="" value="Update">
+
           </form>
-          <br>
           <form method="post" action="/gallery/{{id}}/">
             <input type="hidden" name="_method" value="DELETE">
             <input class="button" type="submit" value="Delete">
           </form>
+          <br>
+
 
         </div>
 
 
-      </div>
     </div>
   </div>
 
 </div>
-<div class="container">
+<div class="container is-mobile">
   <div class="editPictureOnly">
-<img src= {{link}} />
-  <button class="button" id="myBtn">Edit</button>
+    <strong class="author">{{Author}}:</strong><strong class="description">{{description}}</strong>
+    <img src= {{link}} />
+    Tags
+    {{#each meta}}
+    <br>
+    {{@key}}: {{this}}
+    {{/each}}
+    <br>
+    <button class="button" id="myBtn">Edit</button>
+  </div>
 </div>
-</div>
+<br>
+<br>
 
 <script src="/js/metaFields.js" charset="utf-8"></script>
 <script src="/js/app.js" charset="utf-8"></script>

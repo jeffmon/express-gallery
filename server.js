@@ -175,6 +175,13 @@ app.post("/login/new", (req, res) => {
   res.redirect("/");
 })
 
+app.get("/login/new", (req, res) => {
+  var errorMessage = null;
+  res.render("partials/newlogin", {
+    error: errorMessage
+  })
+})
+
 
 app.post('/login', passport.authenticate('local', {
   successRedirect: '/',

@@ -2,80 +2,10 @@ body{
   font-family: 'Roboto Condensed', sans-serif;
 }
 
-.dropdown {
-  display: inline-block;
-  position: relative;
-}
-
-.dd-button {
-  display: inline-block;
-  border: 1px solid gray;
-  border-radius: 4px;
-  padding: 10px 30px 10px 20px;
-  background-color: #ffffff;
-  cursor: pointer;
-  white-space: nowrap;
-  color: grey;
-}
-
 .metaTags{
   font-size: 16px;
 }
 
-.logoutButton {
-  @extend .dd-button;
-  float: right;
-  font-size: 15px;
-}
-
-.dd-button:after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid black;
-}
-
-.dd-input {
-  display: none;
-}
-
-#loginForm,
-#uploadForm {
-  position: absolute;
-  top: 100%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 0;
-  margin: 2px 0 0;
-  box-shadow: 0 0 6px 0 rgba(0,0,0,0.1);
-  background-color: #ffffff;
-  list-style-type: none;
-  color: grey;
-}
-
-#loginForm div,
-#uploadForm div {
-  display: block;
-  margin: -10px -20px;
-  padding: 10px 20px;
-  width: 200px;
-}
-
-.dd-input + #loginForm,
-.dd-input + #uploadForm {
-  display: none;
-}
-
-.dd-input:checked + #loginForm,
-.dd-input:checked + #uploadForm {
-  display: block;
-}
 
 .author {
   font-size: 16px;
@@ -203,6 +133,7 @@ hr.line {
 .editPictureOnly{
   margin-bottom: 55px;
   color: grey;
+  height: 14rem;
   img {
     width: 100%;
     height: 100%;
@@ -210,7 +141,7 @@ hr.line {
   }
   @media screen and (min-width: 540px) {
     margin: 5px;
-    height: 32rem;
+    height: 28rem;
   }
 }
 
@@ -226,19 +157,6 @@ hr.line {
   }
 }
 
-.button {
-  border: 1px solid gray;
-  border-radius: 4px;
-  padding: 10px 30px 10px 20px;
-  background-color: #ffffff;
-  cursor: pointer;
-  white-space: nowrap;
-  color: grey;
-  font-size: 1.1rem;
-  @media screen and (min-width: 540px) {
-
-  }
-}
 
 .uploadContainer {
   display: flex;
@@ -267,11 +185,22 @@ hr.line {
 
 /* Modal Content/Box */
 .modal-content {
+    position: relative;
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
+    margin: auto;
+    padding: 0;
     border: 1px solid #888;
-    width: 30%; /* Could be more or less, depending on screen size */
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+form {
+  text-align: center;
+
 }
 
 /* The Close Button */
@@ -287,4 +216,15 @@ hr.line {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
 }

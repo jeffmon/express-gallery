@@ -1,14 +1,20 @@
-<h4>New User?</h4>
-<form action="/login/new" method="post">
-    <div>
-        <label>New Username:</label>
-        <input id="username" type="text" name="username"/>
-    </div>
-    <div>
-        <label>Password:</label>
-        <input id="password" type="password" name="password"/>
-    </div>
-    <div>
-        <input type="submit" value="Create User"/>
-    </div>
+<form action="/" method="get">
+  <input type="submit" value="Main" name="Submit" class="button" />
 </form>
+<br>
+<div id="loginForm">
+  <form id="user-form" action="/login/new" method="post">
+    <div>
+      <label>New Username:</label>
+      <input id="username" type="text" name="username" autocorrect="off" autocomplete="new-username"  />
+    </div>
+    <div>
+      <label>Password:</label>
+      <input id="password" type="password" name="password"autocorrect="off" autocomplete="new-password" />
+    </div>
+    <br>
+    <div>
+      <input class="button" id="user-login" type="submit" value="Create User" />
+    </div>
+  </form>
+</div>

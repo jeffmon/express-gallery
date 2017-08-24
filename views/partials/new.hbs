@@ -1,35 +1,42 @@
+<br>
+
 <form action="/logout" method="get">
-  <input type="submit" value="Log Out" name="Submit" class="logoutButton" />
+  <input type="submit" value="Log Out" name="Submit" class="button" />
 </form>
-<br>
-<br>
+
 
 <hr class="line">
 <div class="container">
 
 
-<div id="header">
-  <h1>_ARCHITEKT</h1>
-  {{!-- <div class="verticalLine"></div> --}}
-  <div id="quote">
-    <p>Welcome to our online portfolio, we are a small group of passionate designers
-      and architects, looking to change and create amazing digital images to inspire
-      others to follow in our innovative steps. Free Architect WordPress Theme</p>
-  </div>
-</div>
-</div>
-<hr class="line">
-<br>
-
-<div class="uploadContainer">
-  <label class="dropdown">
-    <div class="dd-button">
-      Upload Image
+  <div id="header">
+    <h1>_ARCHITEKT</h1>{{!-- <div class="verticalLine"></div> --}}
+    <div id="quote">
+      <p>Welcome to our online portfolio, we are a small group of passionate designers
+        and architects, looking to change and create amazing digital images to inspire
+        others to follow in our innovative steps. Free Architect WordPress Theme</p>
     </div>
+  </div>
 
-    <input type="checkbox" class="dd-input" id="test">
+</div>
 
-    <div id="uploadForm">
+
+<hr class="line">
+<div class="container is-mobile">
+
+  <button class="button" id="myBtn">Upload</button>
+
+
+</div>
+
+
+
+
+
+<div id="myModal" class="modal">
+  <div class="container is-mobile">
+  <div class="modal-content">
+    <span class="close">&times;</span>
       <form action="/gallery" method="post">
         <label for="Author">Author</label>
         <input id="Author" type="text" name="Author" placeholder="Author of Picture">
@@ -42,19 +49,15 @@
         <br>
         <div class="add_meta_field">
           <ul id="meta_fields"></ul>
-          <button class ="button" id="add_meta_field_button" type="button">Add Meta Data</button>
+          <button class="button" id="add_meta_field_button" type="button">Add Meta Data</button>
         </div>
         <br>
-        <input class ="button" type="submit" name="" value="Send">
+        <input class="button" type="submit" name="" value="Send">
       </form>
-
-    </div>
-    <div class="error">
-      <strong>{{error}}</strong>
-    </div>
-
-  </label>
-
+  </div>
+</div>
 </div>
 
+
+<script src="/js/app.js" charset="utf-8"></script>
 <script src="js/metaFields.js" charset="utf-8"></script>
